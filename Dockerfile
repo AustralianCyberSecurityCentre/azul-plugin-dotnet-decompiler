@@ -19,7 +19,7 @@ COPY debian.txt /tmp/src/
 # Add micoroft gpg keys.
 RUN apt-get update && \
     apt-get install curl -y --no-install-recommends && \
-    curl -sSL -O https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb && \
+    curl -sSL -O https://packages.microsoft.com/config/debian/13/packages-microsoft-prod.deb && \
     dpkg -i packages-microsoft-prod.deb && \
     rm packages-microsoft-prod.deb
 
@@ -55,7 +55,7 @@ COPY debian.txt /tmp/src/
 # Add micoroft gpg keys.
 RUN apt-get update && \
     apt-get install curl -y --no-install-recommends && \
-    curl -sSL -O https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb && \
+    curl -sSL -O https://packages.microsoft.com/config/debian/13/packages-microsoft-prod.deb && \
     dpkg -i packages-microsoft-prod.deb && \
     rm packages-microsoft-prod.deb
 
