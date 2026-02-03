@@ -9,7 +9,7 @@ Decompiles dotnet using ILSpy's commandline tool.
 sudo apt install dotnet6
 sudo apt install dotnet7
 
-### install tool (if setup.py fails to install it)
+### install tool (if `hatch_build.py` fails to install it)
 
 ILSpy commandline tool for decompiling
 https://github.com/icsharpcode/ILSpy/tree/master/ICSharpCode.ILSpyCmd
