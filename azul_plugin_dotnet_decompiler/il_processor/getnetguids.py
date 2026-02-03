@@ -7,7 +7,7 @@ import struct
 
 import pefile
 
-guid_regex = re.compile(b"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}" b"-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}")
+guid_regex = re.compile(b"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}")
 
 
 def is_dot_net_assembly(file_path: str):
@@ -85,7 +85,7 @@ def get_assembly_guids(assembly_path: str) -> dict | None:
     try:
         # Get compiletime
         compiled = datetime.datetime.fromtimestamp(pe.FILE_HEADER.TimeDateStamp)
-    except Exception:  # nosec B110
+    except Exception:  # noqa: S110
         pass
 
     try:

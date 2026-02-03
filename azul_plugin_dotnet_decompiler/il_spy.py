@@ -116,9 +116,7 @@ def _run_ilspy_and_process_errors(file_path: str, options: list[str]) -> subproc
         raise FileNotFoundError(f"Could not find the file to run ilspy on path: '{file_path}'")
     options.append(file_path)
 
-    result: subprocess.CompletedProcess[str] = subprocess.run(
-        [bin_abs_path] + options, capture_output=True, text=True
-    )  # nosec B603
+    result: subprocess.CompletedProcess[str] = subprocess.run([bin_abs_path] + options, capture_output=True, text=True)  # noqa: S603
 
     if result.returncode != 0:
         errors = result.stderr

@@ -494,7 +494,7 @@ def parse(il_file_path: str) -> ILrepr:
         _link_ilcalls(ilrepr)
         _link_entry_point(ilrepr)
         _link_ilcall_params(ilrepr)
-    except Exception:  # nosec B110
+    except Exception:  # noqa: S110
         pass
         # Can sometimes fail to parse EP on obfuscated binaries
         # Don't raise as this will abort the entire plugin
@@ -608,8 +608,7 @@ def _link_ilcalls(ilrepr: ILrepr) -> None:
                     cfailed += 1
             except TypeError:
                 print(
-                    "failed something with the param string types\nm: %s "
-                    "c: %s" % (ilmethod.params, ilcall.textparams)
+                    "failed something with the param string types\nm: %s c: %s" % (ilmethod.params, ilcall.textparams)
                 )
                 raise
         else:
@@ -647,7 +646,7 @@ def _link_ilcall_params(ilrepr: ILrepr) -> None:
                     fail_count += 1
                 else:
                     origin_ilop = None
-                    print("param ilop is exception handler, set as None " "%s %s" % (ilcall.ilop.get_loc(), offset))
+                    print("param ilop is exception handler, set as None %s %s" % (ilcall.ilop.get_loc(), offset))
             ilcall.params.append(origin_ilop)
 
 
@@ -667,8 +666,8 @@ def _link_entry_point(ilrepr: ILrepr) -> None:
         try:
             ep_text_alt = "'" + ep_text[0] + "'", ep_text[1]
             ilrepr.entrypoint = ilrepr.method_sigs[ep_text_alt][0]
-        except Exception:
-            raise Exception("failed to link entry point", ep_text)
+        except Exception as e:
+            raise Exception("failed to link entry point", ep_text) from e
 
 
 def _do_ilclass(il: str, ilclass: ILclass) -> None:

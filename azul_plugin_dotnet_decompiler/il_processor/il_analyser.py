@@ -37,9 +37,9 @@ def parse_il(il_file_path: str) -> dict:
             "call_tree_friendly": call_tree_friendly,
         }
         results["il_analysis"] = resana
-    except Exception:
+    except Exception as e:
         msg = "IL analysis failed:\n%s" % traceback.format_exc(limit=10)
-        raise AnalyseException(msg)
+        raise AnalyseException(msg) from e
     return results
 
 
@@ -145,7 +145,7 @@ def __do_call_tree_recursive(
     else:
         try:
             call_tree_print += "\n" + indent + root[0] + "::" + root[1]
-        except Exception:  # nosec B110
+        except Exception:  # noqa: S110
             pass
 
     # preorder print

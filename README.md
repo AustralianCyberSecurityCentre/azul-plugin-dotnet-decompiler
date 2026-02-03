@@ -9,7 +9,7 @@ Decompiles dotnet using ILSpy's commandline tool.
 sudo apt install dotnet6
 sudo apt install dotnet7
 
-### install tool (if setup.py fails to install it)
+### install tool (if `hatch_build.py` fails to install it)
 
 ILSpy commandline tool for decompiling
 https://github.com/icsharpcode/ILSpy/tree/master/ICSharpCode.ILSpyCmd
@@ -162,7 +162,7 @@ Check `azul-plugin-dotnet-decompiler --help` for advanced usage.
 
 ## Python Package management
 
-This python package is managed using a `setup.py` and `pyproject.toml` file.
+This python package is managed using a `pyproject.toml` file.
 
 Standardisation of installing and testing the python package is handled through tox.
 Tox commands include:
