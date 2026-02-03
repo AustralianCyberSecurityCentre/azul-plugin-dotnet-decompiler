@@ -145,7 +145,7 @@ def __do_call_tree_recursive(
     else:
         try:
             call_tree_print += "\n" + indent + root[0] + "::" + root[1]
-        except Exception:  # nosec B110
+        except Exception:  # noqa: S110
             pass
 
     # preorder print

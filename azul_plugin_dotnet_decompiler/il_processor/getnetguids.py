@@ -85,7 +85,7 @@ def get_assembly_guids(assembly_path: str) -> dict | None:
     try:
         # Get compiletime
         compiled = datetime.datetime.fromtimestamp(pe.FILE_HEADER.TimeDateStamp)
-    except Exception:  # nosec B110
+    except Exception:  # noqa: S110
         pass
 
     try:

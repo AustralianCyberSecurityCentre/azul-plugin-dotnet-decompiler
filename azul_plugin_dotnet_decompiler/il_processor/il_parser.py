@@ -494,7 +494,7 @@ def parse(il_file_path: str) -> ILrepr:
         _link_ilcalls(ilrepr)
         _link_entry_point(ilrepr)
         _link_ilcall_params(ilrepr)
-    except Exception:  # nosec B110
+    except Exception:  # noqa: S110
         pass
         # Can sometimes fail to parse EP on obfuscated binaries
         # Don't raise as this will abort the entire plugin
