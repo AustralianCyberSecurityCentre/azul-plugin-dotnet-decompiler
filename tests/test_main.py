@@ -1784,7 +1784,7 @@ class TestExecute(test_template.TestPlugin):
                         sha256="46c2fab4dc6673447d5651ecfaeb793b49a908344f193b54f63ce531fc2c16f5",
                         data=[
                             EventData(
-                                hash="113ef42681c32e07b4b93e2c47aa8f21ba82ad41fe1c3695c531120e54c39f66",
+                                hash="a4ef321a5d1dd539b889b4056e636e2ecfcd4d1de70b264f3ceb43378213c7dd",
                                 label="decompiled_cs",
                             ),
                             EventData(
@@ -5321,7 +5321,7 @@ class TestExecute(test_template.TestPlugin):
                     )
                 ],
                 data={
-                    "113ef42681c32e07b4b93e2c47aa8f21ba82ad41fe1c3695c531120e54c39f66": b"",
+                    "a4ef321a5d1dd539b889b4056e636e2ecfcd4d1de70b264f3ceb43378213c7dd": b"",
                     "55a4be9d086b7c1919ac530d1e47974f5f099c581f2bba970fdcc85b4b80e222": b"",
                 },
             ),
