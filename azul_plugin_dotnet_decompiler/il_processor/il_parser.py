@@ -29,13 +29,13 @@ class ILclass(ILobject):
 
     def __init__(self, i):
         super(ILclass, self).__init__(i)
-        self.parent: ILclass = None
+        self.parent: ILclass | None = None
         self.children: list[ILclass] = []
         self.ilmethods: list[ILmethod] = []
 
         # data
         # the name of this class
-        self.name: str = None
+        self.name: str | None = None
 
     @staticmethod
     def is_start(illine: str) -> re.Match | None:
@@ -77,7 +77,7 @@ class ILclass(ILobject):
         """Read a class from it's start to end."""
         self.parent = None
         match_start = self.re_get.search(line)
-        self.name = match_start.group(1)
+        self.name = match_start.group(1) if match_start is not None else None
 
 
 class ILmethod(ILobject):
@@ -104,7 +104,7 @@ class ILmethod(ILobject):
     # parameters
     re_initial_split = re.compile(r"\s*(.+(?=\s\S))\s(\S+)\s*\((\))?")
 
-    def __init__(self, i: ILobject):
+    def __init__(self, i: ILobject | int):
         super(ILmethod, self).__init__(i)
         self.ilclass: ILclass = None
         self.ilops: list[ILop] = []
@@ -112,9 +112,9 @@ class ILmethod(ILobject):
         self.calledby: list[ILcall] = []
 
         # data
-        self.name: str = None
+        self.name: str | None = None
         self.params: list[str] = []
-        self.rettype: list[str] = []
+        self.rettype: tuple[str | Any, ...] | None = tuple()
 
     @staticmethod
     def is_start(illine: str) -> re.Match | None:
@@ -158,14 +158,17 @@ class ILmethod(ILobject):
         line = lines[0]
         line2 = util.replace_space(line)
         match = self.re_initial_split.search(line2)
-        raw_return, raw_name, hasnot_param = match.group(1, 2, 3)
+        raw_return, raw_name, hasnot_param = match.group(1, 2, 3) if match is not None else None, None, None
 
         if not hasnot_param:
             # multi line params
             for line in lines[1:]:
                 m = self.re_param_line.search(line)
-                praw_type, _, phas_more = m.group(1, 2, 3)
-                praw_type = self.re_param_fix.search(praw_type).group(1)
+                praw_type, _, phas_more = m.group(1, 2, 3) if m is not None else None, None, None
+
+                re_param_fix_match = self.re_param_fix.search(praw_type)
+                if re_param_fix_match is not None:
+                    praw_type = re_param_fix_match.group(1)
                 # dunno what these out and in mean, but it makes matching not
                 # work
                 praw_type = praw_type.replace("[out] ", "")
@@ -195,15 +198,15 @@ class ILop(ILobject):
 
     def __init__(self, i):
         super(ILop, self).__init__(i)
-        self.ilmethod: ILmethod = None
-        self.ilcall: ILcall = None
+        self.ilmethod: ILmethod | None = None
+        self.ilcall: ILcall | None = None
 
         # data
-        self.glob: str = None
-        self.code: str = None
-        self.loc: str = None
-        self.opcode: str = None
-        self.attrib: str = None
+        self.glob: str = ""
+        self.code: str = ""
+        self.loc: str = ""
+        self.opcode: str = ""
+        self.attrib: str = ""
 
     @staticmethod
     def is_ilop(illine: str) -> re.Match | None:
@@ -233,11 +236,11 @@ class ILop(ILobject):
     def read(self, line: str) -> None:
         """Read a il OP from a line of il code."""
         match = self.re_get.search(line)
-        self.glob = match.group(1)
-        self.code = match.group(2)
-        self.loc = match.group(3)
-        self.opcode = match.group(4)
-        self.attrib = match.group(5)
+        self.glob = match.group(1) if match is not None else ""
+        self.code = match.group(2) if match is not None else ""
+        self.loc = match.group(3) if match is not None else ""
+        self.opcode = match.group(4) if match is not None else ""
+        self.attrib = match.group(5) if match is not None else ""
 
 
 class ILcall(ILobject):
@@ -267,15 +270,15 @@ class ILcall(ILobject):
 
     def __init__(self, i):
         super(ILcall, self).__init__(i)
-        self.ilop: ILop = None
-        self.intarget: ILmethod = None
-        self.extarget: tuple[str, str] = None
+        self.ilop: ILop | None = None
+        self.intarget: ILmethod | None = None
+        self.extarget: tuple[str, str] | None = None
 
         # data
-        self.texttarget: tuple[str, str, str] = None
+        self.texttarget: tuple[str, str, str] | None = None
         self.textparams: list[str] = []
         self.params: list = []
-        self.rettype: list[str] = None
+        self.rettype: list[str] | None = None
 
     @staticmethod
     def is_ilcall(opcode: str) -> bool:
@@ -314,7 +317,8 @@ class ILcall(ILobject):
         if split_res is not None:
             raw_return, raw_names, raw_params = split_res.group(1, 2, 3)
         else:
-            raw_return, raw_names = self.re_initial_noparam.search(line2).group(1, 2)
+            noparam_res = self.re_initial_noparam.search(line2)
+            raw_return, raw_names = noparam_res.group(1, 2) if noparam_res is not None else "", ""
             raw_params = ""
         raw_lib, raw_class, raw_method = self.re_library_class_method.search(raw_names).group(1, 2, 3)
 
@@ -382,12 +386,12 @@ class ILrepr:
     """A representation of the il code in a variety of data structures."""
 
     def __init__(self):
-        self.entrypoint: ILmethod = None
+        self.entrypoint: ILmethod | None = None
         self.cctors: list[ILmethod] = []
         self.ilclasses: list[ILclass] = []
         self.exassemblies: dict[str, EXassembly] = {}
         self.method_sigs: dict[tuple[str, str], list[ILmethod]] = {}
-        self.il: list[str] = None
+        self.il: list[str] = []
 
         # map of index to ilop
         self.ilopmap: dict[int, ILop] = {}
@@ -461,7 +465,7 @@ class Stack:
         """Get the current class in the stack."""
         return self.classes[len(self.classes) - 1]
 
-    def finish(self) -> ILclass:
+    def finish(self) -> None:
         """Pops the last class from the stack."""
         self.classes.pop()
 
@@ -507,7 +511,7 @@ def _parse_structure(ilrepr: ILrepr) -> None:
     """Create objects for each class, method and ilop, linking them to each other."""
     cclass, cmethod, cilop = 0, 0, 0
     stack = Stack()
-    current_method = None
+    current_method: ILmethod | None = None
     for i in range(len(ilrepr.il)):
         line = ilrepr.il[i]
         if ILop.is_ilop(line):
@@ -563,6 +567,8 @@ def _parse_lines(ilrepr: ILrepr) -> None:
                 if ILcall.is_ilcall(ilop.opcode) and ilop.attrib != "":
                     # fill in ilcall details from il code
                     _do_ilcall(ilop)
+                    if ilop.ilcall is None or ilop.ilmethod is None:
+                        raise AttributeError("Expected ilop.ilcall and ilop.ilmethod to hold a value, got None")
                     _link_call_method(ilop.ilcall, ilop.ilmethod)
                     count_calls += 1
 
@@ -571,6 +577,9 @@ def _link_ilcalls(ilrepr: ILrepr) -> None:
     # link ilcalls to the methods that they call
     csystem, clocal, cfailed, cassumed = 0, 0, 0, 0
     for ilcall in ilrepr.iter_ilcalls():
+        if ilcall.ilop is None or ilcall.texttarget is None:
+            raise AttributeError("Expected ilcall.ilop and ilcall.texttarget to hold a value, got None")
+
         try:
             exlibrary, ilclass, ilmethod = ilcall.texttarget
         except Exception:
@@ -608,7 +617,7 @@ def _link_ilcalls(ilrepr: ILrepr) -> None:
                     cfailed += 1
             except TypeError:
                 print(
-                    "failed something with the param string types\nm: %s c: %s" % (ilmethod.params, ilcall.textparams)
+                    "failed something with the param string types\nm: %s c: %s" % (ilmethod.params, ilcall.textparams)  # ty: ignore[unresolved-attribute] ilmethod.params might not have __str__ due to typing isuees. if we're crashing just print anyway
                 )
                 raise
         else:
@@ -636,6 +645,8 @@ def _link_ilcall_params(ilrepr: ILrepr) -> None:
         for i in range(len(ilcall.textparams)):
             origin_ilop = None
             offset = i - len(ilcall.textparams)
+            if ilcall.ilop is None:
+                raise AttributeError("Expected ilcall.ilop to hold a value, got None")
             index = ilcall.ilop.i
 
             try:
@@ -670,18 +681,18 @@ def _link_entry_point(ilrepr: ILrepr) -> None:
             raise Exception("failed to link entry point", ep_text) from e
 
 
-def _do_ilclass(il: str, ilclass: ILclass) -> None:
+def _do_ilclass(il: list[str], ilclass: ILclass) -> None:
     # parses various class data
     ilclass.read(il[ilclass.i])
 
 
-def _do_ilmethod(il: str, ilmethod: ILmethod) -> None:
+def _do_ilmethod(il: list[str], ilmethod: ILmethod) -> None:
     # parses method data from the second line (first line does not contain much
     # useful atm)
     ilmethod.read(il[ilmethod.i + 1 : ilmethod.i + 1 + 20])
 
 
-def _do_ilop(il: str, ilop: ILop) -> None:
+def _do_ilop(il: list[str], ilop: ILop) -> None:
     # parses data from il line
     ilop.read(il[ilop.i])
 

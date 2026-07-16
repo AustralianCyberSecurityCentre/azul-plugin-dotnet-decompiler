@@ -204,10 +204,9 @@ class AzulPluginDotnetDecompiler(BinaryPlugin):
                 if guids_dict.get("typelib_id"):
                     self.add_feature_values("typelib_id", guids_dict.get("typelib_id"))
 
-                if guids_dict.get("compiled_time"):
-                    self.add_feature_values(
-                        "compiled_time", datetime.datetime.fromisoformat(guids_dict.get("compiled_time"))
-                    )
+                compiled_time = guids_dict.get("compiled_time")
+                if compiled_time:
+                    self.add_feature_values("compiled_time", datetime.datetime.fromisoformat(compiled_time))
         except Exception:
             self.logger.warning(f"Failed to find mvid for job: '{job.id}'")
 
