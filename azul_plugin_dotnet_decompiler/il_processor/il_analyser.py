@@ -123,7 +123,7 @@ def _do_call_tree(ilrepr: il_parser.ILrepr) -> tuple[list, str]:
 def __do_call_tree_recursive(
     ilrepr: il_parser.ILrepr,
     call_tree_print: str,
-    root: il_parser.ILmethod | tuple[str, str],
+    root: il_parser.ILmethod | tuple[str, str] | None,
     parents: list[il_parser.ILmethod],
     method_coll: set[il_parser.ILmethod],
     timeout: float | None = None,
