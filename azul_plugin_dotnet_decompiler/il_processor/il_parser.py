@@ -49,8 +49,6 @@ class ILclass(ILobject):
 
     def get_full_name(self) -> str:
         """Get full name of class."""
-        if self.parent is None:
-            raise ValueError("Expected self.parent to be ILclass, got None")
         full = self.name
         next_parent = self.parent
         while next_parent and next_parent.name:

@@ -179,8 +179,8 @@ class AzulPluginDotnetDecompiler(BinaryPlugin):
                 if len(il_parsed.get("list_ilmethod", [])) > 0:
                     self.parse_il_method_features(il_parsed.get("list_ilmethod"))
                 self.logger.info("Successfully processed IL file.")
-            except il_analyser.AnalyseException:
-                self.logger.warning(f"Failed to get call tree job: '{job.id}'")
+            except il_analyser.AnalyseException as e:
+                self.logger.warning(f"Failed to get call tree job: '{job.id}':{e}")
 
         # Extract various types
         for feature_key, ilspy_list_type in [
