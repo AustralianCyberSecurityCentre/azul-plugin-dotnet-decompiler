@@ -4,7 +4,7 @@ import datetime
 import re
 import tempfile
 
-from azul_runner import (
+from azul_runner import (  # ty: ignore[unresolved-import] false positive
     BinaryPlugin,
     DataLabel,
     Feature,
@@ -179,8 +179,8 @@ class AzulPluginDotnetDecompiler(BinaryPlugin):
                 if len(il_parsed.get("list_ilmethod", [])) > 0:
                     self.parse_il_method_features(il_parsed.get("list_ilmethod"))
                 self.logger.info("Successfully processed IL file.")
-            except il_analyser.AnalyseException:
-                self.logger.warning(f"Failed to get call tree job: '{job.id}'")
+            except il_analyser.AnalyseException as e:
+                self.logger.warning(f"Failed to get call tree job: '{job.id}':{e}")
 
         # Extract various types
         for feature_key, ilspy_list_type in [
@@ -204,10 +204,9 @@ class AzulPluginDotnetDecompiler(BinaryPlugin):
                 if guids_dict.get("typelib_id"):
                     self.add_feature_values("typelib_id", guids_dict.get("typelib_id"))
 
-                if guids_dict.get("compiled_time"):
-                    self.add_feature_values(
-                        "compiled_time", datetime.datetime.fromisoformat(guids_dict.get("compiled_time"))
-                    )
+                compiled_time = guids_dict.get("compiled_time")
+                if compiled_time:
+                    self.add_feature_values("compiled_time", datetime.datetime.fromisoformat(compiled_time))
         except Exception:
             self.logger.warning(f"Failed to find mvid for job: '{job.id}'")
 

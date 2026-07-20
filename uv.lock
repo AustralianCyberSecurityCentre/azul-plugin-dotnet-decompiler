@@ -70,6 +70,7 @@ dependencies = [
     { name = "starlette" },
     { name = "yara-x" },
 ]
+sdist = { url = "https://files.pythonhosted.org/packages/a4/2b/89195b6473b8b83cad5c92d3b8b1e653b70efa1d90c8c0cf87b524a54547/azul_bedrock-11.0.126.tar.gz", hash = "sha256:4d4fc607d32be1caa7b0d5efcd0cad966c0aa5e260bd9f4bc3805cf75bb6758d", size = 355020, upload-time = "2026-06-10T05:45:25.995Z" }
 wheels = [
     { url = "https://devpi.acsc.internal/azul/stable/+f/fe4/adf7443e6f4b4/azul_bedrock-12.0.41-py3-none-any.whl", hash = "sha256:fe4adf7443e6f4b4622211e4eb4a009c3a00029b406d53b034dbcd199d3f170e" },
 ]

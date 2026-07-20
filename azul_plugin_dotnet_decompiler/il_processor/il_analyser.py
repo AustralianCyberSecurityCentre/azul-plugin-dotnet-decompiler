@@ -5,6 +5,7 @@ The structures represent information calculated from it as a jsonable dictionary
 
 import time
 import traceback
+from typing import Any
 
 from azul_plugin_dotnet_decompiler.il_processor import il_parser
 
@@ -123,10 +124,10 @@ def _do_call_tree(ilrepr: il_parser.ILrepr) -> tuple[list, str]:
 def __do_call_tree_recursive(
     ilrepr: il_parser.ILrepr,
     call_tree_print: str,
-    root: il_parser.ILmethod,
-    parents: list,
+    root: il_parser.ILmethod | tuple[str, str] | None,
+    parents: list[il_parser.ILmethod],
     method_coll: set[il_parser.ILmethod],
-    timeout: float,
+    timeout: float | None = None,
 ):
     """Recursive component of the call tree extraction."""
     if timeout is not None and timeout < time.time():
@@ -137,22 +138,22 @@ def __do_call_tree_recursive(
     ilop_count = 0
     indent = "   " * len(parents)
     # get friendly text for this node if it isnt just a string
-    if root in method_coll:
+    if isinstance(root, il_parser.ILmethod) and root in method_coll:
         friendly = root.get_loc_text()
         local = True
         ilop_count = len(root.ilops)
         call_tree_print += "\n" + indent + root.friendly_loc_text()
     else:
         try:
-            call_tree_print += "\n" + indent + root[0] + "::" + root[1]
+            call_tree_print += "\n" + indent + root[0] + "::" + root[1]  # ty: ignore[not-subscriptable]
         except Exception:  # noqa: S110
             pass
 
     # preorder print
-    data = {"root": friendly, "local": local, "ilops": ilop_count}
+    data: dict[str, Any] = {"root": friendly, "local": local, "ilops": ilop_count}
 
     # branch for each call made from current method
-    if local and root not in parents:
+    if local and isinstance(root, il_parser.ILmethod) and root not in parents:
         # add to parents
         parents_new = list(parents)
         parents_new.append(root)

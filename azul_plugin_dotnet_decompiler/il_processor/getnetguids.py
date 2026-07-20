@@ -5,7 +5,7 @@ import datetime
 import re
 import struct
 
-import pefile
+import pefile  # ty: ignore[unresolved-import] false positive
 
 guid_regex = re.compile(b"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}")
 
