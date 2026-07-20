@@ -5,6 +5,7 @@ The structures represent information calculated from it as a jsonable dictionary
 
 import time
 import traceback
+from typing import Any
 
 from azul_plugin_dotnet_decompiler.il_processor import il_parser
 
@@ -149,7 +150,7 @@ def __do_call_tree_recursive(
             pass
 
     # preorder print
-    data = {"root": friendly, "local": local, "ilops": ilop_count}
+    data: dict[str, Any] = {"root": friendly, "local": local, "ilops": ilop_count}
 
     # branch for each call made from current method
     if local and isinstance(root, il_parser.ILmethod) and root not in parents:
