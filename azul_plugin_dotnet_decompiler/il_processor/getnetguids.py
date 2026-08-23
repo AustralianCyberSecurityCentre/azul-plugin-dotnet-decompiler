@@ -69,7 +69,7 @@ def get_assembly_guids(assembly_path: str) -> dict | None:
         pe = pefile.PE(assembly_path)
         for section in pe.sections:
             if section.Name.startswith(b".text\x00"):  # ty: ignore[unresolved-attribute]
-                if txt_start is not None:
+                if section.PointerToRawData is not None:
                     txt_start = section.PointerToRawData
                 if section.SizeOfRawData is not None:
                     txt_end = txt_start + section.SizeOfRawData
