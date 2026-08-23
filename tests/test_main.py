@@ -407,8 +407,8 @@ class TestExecute(test_template.TestPlugin):
                     FV("TreeFlattener"),
                     FV("TreeTraversal"),
                 ],
-                "enums": [FV("ICSharpCode.TreeView.SharpTreeView.DropPlace")],
-                "interfaces": [FV("ICSharpCode.TreeView.SharpTreeNodeProxy.IPropDesc")],
+                "enums": [FV("ICSharpCode.TreeView.SharpTreeView+DropPlace")],
+                "interfaces": [FV("ICSharpCode.TreeView.SharpTreeNodeProxy+IPropDesc")],
                 "mvid": [FV("e5fc12f8-235e-4744-b277-a14c818567e3")],
                 "namespace_class_methods": [
                     FV(">c'::'<.cctor>b__0_0'"),
@@ -1378,10 +1378,10 @@ class TestExecute(test_template.TestPlugin):
                     FV("yUYsuTS7icsykHyZQg"),
                 ],
                 "delegates": [
-                    FV("UToeY9IgHOacHbBL1H.cwms4y3OrBbigycq7G.w7AqjJU916RLPAJ2Un"),
-                    FV("UToeY9IgHOacHbBL1H.cwms4y3OrBbigycq7G.yUYsuTS7icsykHyZQg"),
+                    FV("UToeY9IgHOacHbBL1H.cwms4y3OrBbigycq7G+w7AqjJU916RLPAJ2Un"),
+                    FV("UToeY9IgHOacHbBL1H.cwms4y3OrBbigycq7G+yUYsuTS7icsykHyZQg"),
                 ],
-                "enums": [FV("UToeY9IgHOacHbBL1H.cwms4y3OrBbigycq7G.npWRfmLiqCPkXE1ueF")],
+                "enums": [FV("UToeY9IgHOacHbBL1H.cwms4y3OrBbigycq7G+npWRfmLiqCPkXE1ueF")],
                 "mvid": [FV("d6f87e10-6396-4e3e-bf79-d3157035aa1e")],
                 "namespace_class_methods": [
                     FV("MXW23U1UXoBvu9XTEl.JU0tqdtRj0d4Bf7GQ6::'4jwhVaHc6'"),
@@ -1712,13 +1712,13 @@ class TestExecute(test_template.TestPlugin):
                 ],
                 "structs": [
                     FV(
-                        "<PrivateImplementationDetails>{70E95C19-C2AD-4D59-8875-3B907C0C18C0}.__StaticArrayInitTypeSize=16"
+                        "<PrivateImplementationDetails>{70E95C19-C2AD-4D59-8875-3B907C0C18C0}+__StaticArrayInitTypeSize=16"
                     ),
                     FV(
-                        "<PrivateImplementationDetails>{70E95C19-C2AD-4D59-8875-3B907C0C18C0}.__StaticArrayInitTypeSize=32"
+                        "<PrivateImplementationDetails>{70E95C19-C2AD-4D59-8875-3B907C0C18C0}+__StaticArrayInitTypeSize=32"
                     ),
                     FV(
-                        "<PrivateImplementationDetails>{70E95C19-C2AD-4D59-8875-3B907C0C18C0}.__StaticArrayInitTypeSize=64"
+                        "<PrivateImplementationDetails>{70E95C19-C2AD-4D59-8875-3B907C0C18C0}+__StaticArrayInitTypeSize=64"
                     ),
                 ],
                 "typelib_id": [FV("3f71c03a-1e96-4d30-816d-6c2551dfb59e")],
@@ -1784,7 +1784,7 @@ class TestExecute(test_template.TestPlugin):
                         sha256="46c2fab4dc6673447d5651ecfaeb793b49a908344f193b54f63ce531fc2c16f5",
                         data=[
                             EventData(
-                                hash="a4ef321a5d1dd539b889b4056e636e2ecfcd4d1de70b264f3ceb43378213c7dd",
+                                hash="33be775418a843c93960b90e676c0e6ad5268cb6bd2a1c6f33bf5501b304747f",
                                 label="decompiled_cs",
                             ),
                             EventData(
@@ -3005,10 +3005,12 @@ class TestExecute(test_template.TestPlugin):
                                 FV("WriterParameters"),
                             ],
                             "delegates": [
-                                FV("Mono.Action"),
+                                FV("Mono.Action`2"),
                                 FV("Mono.Cecil.AssemblyResolveEventHandler"),
                                 FV("Mono.Cecil.Cil.InstructionMapper"),
-                                FV("Mono.Func"),
+                                FV("Mono.Func`1"),
+                                FV("Mono.Func`2"),
+                                FV("Mono.Func`3"),
                             ],
                             "enums": [
                                 FV("Mono.Cecil.AssemblyAttributes"),
@@ -5297,10 +5299,10 @@ class TestExecute(test_template.TestPlugin):
                             ],
                             "structs": [
                                 FV(
-                                    "<PrivateImplementationDetails>{846D2213-FD15-4D20-8760-3F13CC6BD202}.__StaticArrayInitTypeSize=128"
+                                    "<PrivateImplementationDetails>{846D2213-FD15-4D20-8760-3F13CC6BD202}+__StaticArrayInitTypeSize=128"
                                 ),
                                 FV(
-                                    "<PrivateImplementationDetails>{846D2213-FD15-4D20-8760-3F13CC6BD202}.__StaticArrayInitTypeSize=1790"
+                                    "<PrivateImplementationDetails>{846D2213-FD15-4D20-8760-3F13CC6BD202}+__StaticArrayInitTypeSize=1790"
                                 ),
                                 FV("Mono.Cecil.ArrayDimension"),
                                 FV("Mono.Cecil.Cil.ImageDebugDirectory"),
@@ -5309,19 +5311,24 @@ class TestExecute(test_template.TestPlugin):
                                 FV("Mono.Cecil.CustomAttributeArgument"),
                                 FV("Mono.Cecil.CustomAttributeNamedArgument"),
                                 FV("Mono.Cecil.ImportGenericContext"),
-                                FV("Mono.Cecil.Metadata.Row"),
+                                FV("Mono.Cecil.Metadata.Row`2"),
+                                FV("Mono.Cecil.Metadata.Row`3"),
+                                FV("Mono.Cecil.Metadata.Row`4"),
+                                FV("Mono.Cecil.Metadata.Row`5"),
+                                FV("Mono.Cecil.Metadata.Row`6"),
+                                FV("Mono.Cecil.Metadata.Row`9"),
                                 FV("Mono.Cecil.Metadata.TableInformation"),
                                 FV("Mono.Cecil.MetadataToken"),
                                 FV("Mono.Cecil.PE.DataDirectory"),
                                 FV("Mono.Cecil.Range"),
-                                FV("Mono.Collections.Generic.Collection.Enumerator"),
+                                FV("Mono.Collections.Generic.Collection`1+Enumerator"),
                             ],
                             "typelib_id": [FV("fd225bb4-fa53-44b2-a6db-85f5e48dcb54")],
                         },
                     )
                 ],
                 data={
-                    "a4ef321a5d1dd539b889b4056e636e2ecfcd4d1de70b264f3ceb43378213c7dd": b"",
+                    "33be775418a843c93960b90e676c0e6ad5268cb6bd2a1c6f33bf5501b304747f": b"",
                     "55a4be9d086b7c1919ac530d1e47974f5f099c581f2bba970fdcc85b4b80e222": b"",
                 },
             ),
