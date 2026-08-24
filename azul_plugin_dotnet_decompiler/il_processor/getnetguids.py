@@ -5,7 +5,7 @@ import datetime
 import re
 import struct
 
-import pefile  # ty: ignore[unresolved-import] false positive
+import pefile
 
 guid_regex = re.compile(b"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}")
 
@@ -68,9 +68,11 @@ def get_assembly_guids(assembly_path: str) -> dict | None:
     try:
         pe = pefile.PE(assembly_path)
         for section in pe.sections:
-            if section.Name.startswith(b".text\x00"):
-                txt_start = section.PointerToRawData
-                txt_end = txt_start + section.SizeOfRawData
+            if section.Name.startswith(b".text\x00"):  # ty: ignore[unresolved-attribute]
+                if section.PointerToRawData is not None:
+                    txt_start = section.PointerToRawData
+                if section.SizeOfRawData is not None:
+                    txt_end = txt_start + section.SizeOfRawData
 
         if not _is_dot_net_assembly(pe):
             return None

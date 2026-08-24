@@ -4,7 +4,7 @@ import datetime
 import re
 import tempfile
 
-from azul_runner import (  # ty: ignore[unresolved-import] false positive
+from azul_runner import (
     BinaryPlugin,
     DataLabel,
     Feature,
