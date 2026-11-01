@@ -5320,5 +5320,5 @@ class TestExecute(test_template.TestPlugin):
                 ],
                 data={"0": b"", "1": b""},
             ),
-            STRIP_HASH=True,
+            strip_hash=True,
         )
