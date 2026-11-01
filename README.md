@@ -6,8 +6,7 @@ Decompiles dotnet using ILSpy's commandline tool.
 
 ### installing dotnet locally (ubuntu22+)
 
-sudo apt install dotnet6
-sudo apt install dotnet7
+install all packages listed in the debian.txt file
 
 ### install tool (if `hatch_build.py` fails to install it)
 

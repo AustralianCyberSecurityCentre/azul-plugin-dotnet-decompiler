@@ -74,9 +74,8 @@ RUN apt-get update && \
     $(grep -vE "^\s*(#|$)" /tmp/src/debian.txt | tr "\n" " ") && \
     rm -rf /tmp/src/debian.txt /var/lib/apt/lists/*
 
-# Install dotnet tool needed by the plugin.
-RUN dotnet tool install ilspycmd --tool-path /usr/bin
-
+# Install dotnet tool needed by the plugin and make it executable by everyone.
+RUN dotnet tool install ilspycmd --tool-path /usr/bin && chmod +x /usr/bin/ilspycmd
 ARG UID=21000
 ARG GID=21000
 RUN groupadd -g $GID azul && useradd --create-home --shell /bin/bash -u $UID -g $GID azul
