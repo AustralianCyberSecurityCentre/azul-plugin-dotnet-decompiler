@@ -1782,16 +1782,7 @@ class TestExecute(test_template.TestPlugin):
                 events=[
                     Event(
                         sha256="46c2fab4dc6673447d5651ecfaeb793b49a908344f193b54f63ce531fc2c16f5",
-                        data=[
-                            EventData(
-                                hash="a7a949dc9609eec2957167c7ed76dafbd0a025cb9b8873634f8dfd072986b282",
-                                label="decompiled_cs",
-                            ),
-                            EventData(
-                                hash="55a4be9d086b7c1919ac530d1e47974f5f099c581f2bba970fdcc85b4b80e222",
-                                label="cs_call_tree",
-                            ),
-                        ],
+                        data=[EventData(hash="0", label="decompiled_cs"), EventData(hash="1", label="cs_call_tree")],
                         features={
                             "assembly_name": [FV("Mono.Cecil")],
                             "assembly_version": [FV("0.9.6.0")],
@@ -5327,9 +5318,7 @@ class TestExecute(test_template.TestPlugin):
                         },
                     )
                 ],
-                data={
-                    "a7a949dc9609eec2957167c7ed76dafbd0a025cb9b8873634f8dfd072986b282": b"",
-                    "55a4be9d086b7c1919ac530d1e47974f5f099c581f2bba970fdcc85b4b80e222": b"",
-                },
+                data={"0": b"", "1": b""},
             ),
+            STRIP_HASH=True,
         )
